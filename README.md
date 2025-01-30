@@ -1,1 +1,1 @@
-Contains the files to create a docker image for icon installed with [SPACK](https://packages.spack.io/package.html).
+Contains the files to create a docker image for [ICON](https://www.icon-model.org) installed with [SPACK](https://packages.spack.io/package.html?name=icon).

@@ -47,7 +47,7 @@ jobs:
 
       - name: Test
         run: |
-          docker run --rm alexgoes/icon-docker:test /bin/bash -c ". $SPACK_ROOT/share/spack/setup-env.sh && which icon"
+          docker run --rm alexgoes/icon-docker:test /bin/bash -c ". $SPACK_ROOT/share/spack/setup-env.sh && which gmake"
 
       - name: Build and push
         uses: docker/build-push-action@v6

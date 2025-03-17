@@ -3,9 +3,8 @@ FROM ubuntu:24.04
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
-ENV SPACK_ROOT=/opt/spack
-
-SHELL ["/bin/bash", "-c"]
+# this is wrongly resolved when using docker run
+#ENV SPACK_ROOT=/opt/spack
 
 # Install dependencies
 RUN apt-get update && \
@@ -34,7 +33,7 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 
 # clone currently latest release
-RUN git clone --depth=2 --branch=releases/v0.23 https://github.com/spack/spack.git $SPACK_ROOT
+RUN git clone --depth=2 --branch=releases/v0.23 https://github.com/spack/spack.git /opt/spack
 #RUN echo "export SPACK_ROOT=/opt/spack" >> /etc/profile.d/spack.sh && \ 
 
 # Set environment variables for SPACK
@@ -52,5 +51,5 @@ RUN git clone --depth=2 --branch=releases/v0.23 https://github.com/spack/spack.g
 #RUN echo ". $SPACK_ROOT/share/spack/setup-env.sh" >> ~/.bashrc
 # to source the ~/.bashrc always, I am not sure if smart
 #SHELL ["/bin/bash", "-i"]
-RUN . $SPACK_ROOT/share/spack/setup-env.sh && spack install icon
+RUN . /opt/spack/share/spack/setup-env.sh && spack install gmake 
 #CMD ["/bin/bash", "-c", ". $SPACK_ROOT/share/spack/setup-env.sh && exec bash"]

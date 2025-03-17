@@ -4,17 +4,17 @@ FROM ubuntu:24.04
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 ENV SPACK_ROOT=/opt/spack
-#ENV PATH="$SPACK_ROOT/bin:$PATH" # this should be taken over by spack/setup-env.sh but it has to be run for every RUN command
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
+    sudo \
     build-essential \
     curl \
     git \
     python3 \
     python3-pip \
     python3-venv \
-    vim \
+    vim \ # for debugging
     wget \
     unzip \
     tar \
@@ -22,19 +22,21 @@ RUN apt-get update && apt-get install -y \
     gfortran \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone SPACK
-RUN git clone --depth=1 https://github.com/spack/spack.git $SPACK_ROOT
+# clone currently latest release
+RUN git clone --depth=2 --branch=releases/v0.23 https://github.com/spack/spack.git $SPACK_ROOT
+RUN . $SPACK_ROOT/share/spack/setup-env.sh
+RUN spack install icon
 
 # Set environment variables for SPACK
-# TODO migh need to be in ~/.bashrc, not sure
-RUN echo "export SPACK_ROOT=/opt/spack" >> /etc/profile.d/spack.sh && \ 
-    echo ". /opt/spack/share/spack/setup-env.sh" >> /etc/profile.d/spack.sh
-
-# Source SPACK in the container
-SHELL ["/bin/bash", "-c"]
+# TODO might need to be in ~/.bashrc, not sure
+#RUN echo "export SPACK_ROOT=/opt/spack" >> /etc/profile.d/spack.sh && \ 
+#    echo ". /opt/spack/share/spack/setup-env.sh" >> /etc/profile.d/spack.sh
 
 # Set up SPACK environment
-RUN . /opt/spack/share/spack/setup-env.sh && spack bootstrap now && spack install icon
+#RUN . /opt/spack/share/spack/setup-env.sh && spack bootstrap now && spack install icon
 
+
+# Source SPACK in the container
 # Expose a shell with SPACK preloaded
-CMD ["/bin/bash", "-l"]
+SHELL ["/bin/bash", "-l"]
+ENTRYPOINT ["spack", "load", "icon"]

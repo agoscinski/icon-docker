@@ -49,6 +49,8 @@ RUN git clone --depth=2 --branch=releases/v0.23 https://github.com/spack/spack.g
 # Source SPACK in the container
 # Expose a shell with SPACK preloaded
 
-RUN echo ". $SPACK_ROOT/share/spack/setup-env.sh" >> ~/.bashrc
-RUN spack install gmake
+#RUN echo ". $SPACK_ROOT/share/spack/setup-env.sh" >> ~/.bashrc
+# to source the ~/.bashrc always, I am not sure if smart
+#SHELL ["/bin/bash", "-i"]
+RUN . $SPACK_ROOT/share/spack/setup-env.sh && spack install icon
 #CMD ["/bin/bash", "-c", ". $SPACK_ROOT/share/spack/setup-env.sh && exec bash"]

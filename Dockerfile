@@ -25,6 +25,14 @@ RUN apt-get update && \
       gfortran && \
     rm -rf /var/lib/apt/lists/*
 
+## Add sudo user
+
+RUN adduser root sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+## Icon
+
+
 # clone currently latest release
 RUN git clone --depth=2 --branch=releases/v0.23 https://github.com/spack/spack.git $SPACK_ROOT
 #RUN echo "export SPACK_ROOT=/opt/spack" >> /etc/profile.d/spack.sh && \ 
@@ -41,5 +49,6 @@ RUN git clone --depth=2 --branch=releases/v0.23 https://github.com/spack/spack.g
 # Source SPACK in the container
 # Expose a shell with SPACK preloaded
 
-RUN . $SPACK_ROOT/share/spack/setup-env.sh && exec bash && spack install gmake
-CMD ["/bin/bash", "-c", ". $SPACK_ROOT/share/spack/setup-env.sh && exec bash"]
+RUN echo ". $SPACK_ROOT/share/spack/setup-env.sh" >> ~/.bashrc
+RUN spack install gmake
+#CMD ["/bin/bash", "-c", ". $SPACK_ROOT/share/spack/setup-env.sh && exec bash"]

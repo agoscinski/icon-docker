@@ -51,6 +51,6 @@ RUN git clone --depth=2 --branch=releases/v0.23 https://github.com/spack/spack.g
 #RUN echo ". $SPACK_ROOT/share/spack/setup-env.sh" >> ~/.bashrc
 # to source the ~/.bashrc always, I am not sure if smart
 #SHELL ["/bin/bash", "-i"]
-ENTRYPOINT . /opt/spack/share/spack/setup-env.sh && spack load gmake
 RUN . /opt/spack/share/spack/setup-env.sh && spack install gmake 
+ENTRYPOINT . /opt/spack/share/spack/setup-env.sh && spack load gmake
 #CMD ["/bin/bash", "-c", ". $SPACK_ROOT/share/spack/setup-env.sh && exec bash"]

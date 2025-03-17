@@ -47,7 +47,10 @@ jobs:
 
       - name: Test
         run: |
-          docker run --rm alexgoes/icon-docker:test which gmake
+          docker run -i --rm alexgoes/icon-docker:test which gmake
+
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
 
       - name: Build and push
         uses: docker/build-push-action@v6

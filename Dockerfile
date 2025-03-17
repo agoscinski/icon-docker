@@ -5,6 +5,8 @@ FROM ubuntu:24.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV SPACK_ROOT=/opt/spack
 
+SHELL ["/bin/bash", "-c"]
+
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     sudo \

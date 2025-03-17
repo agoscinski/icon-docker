@@ -49,7 +49,7 @@ jobs:
 
       - name: Test
         run: |
-          docker run --rm icon-docker:${{ env.TEST_TAG }} which gmake
+          docker run --rm icon-docker:testing which gmake
 
       - name: Build and push
         uses: docker/build-push-action@v6

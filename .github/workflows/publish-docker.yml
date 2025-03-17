@@ -47,7 +47,7 @@ jobs:
 
       - name: Test
         run: |
-          docker run --rm alexgoes/icon-docker:test spack status
+          docker run --rm alexgoes/icon-docker:test which gmake
 
       - name: Build and push
         uses: docker/build-push-action@v6

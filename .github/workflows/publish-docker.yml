@@ -45,11 +45,11 @@ jobs:
           context: .
           file: ./Dockerfile
           load: true
-          tags: testing 
+          tags: test
 
       - name: Test
         run: |
-          docker run --rm icon-docker:testing which gmake
+          docker run --rm alexgoes/icon-docker:test which gmake
 
       - name: Build and push
         uses: docker/build-push-action@v6

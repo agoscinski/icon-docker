@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y \
 # clone currently latest release
 RUN git clone --depth=2 --branch=releases/v0.23 https://github.com/spack/spack.git $SPACK_ROOT
 RUN . $SPACK_ROOT/share/spack/setup-env.sh
-RUN spack install icon
+RUN spack install gmake
 
 # Set environment variables for SPACK
 # TODO might need to be in ~/.bashrc, not sure
@@ -39,4 +39,4 @@ RUN spack install icon
 # Source SPACK in the container
 # Expose a shell with SPACK preloaded
 SHELL ["/bin/bash", "-l"]
-ENTRYPOINT ["spack", "load", "icon"]
+ENTRYPOINT ["spack", "load", "gmake"]
